@@ -24,13 +24,15 @@ permissions:
 
 jobs:
   run:
-    runs-on: ubuntu-latest
+    # 锁定版本：ubuntu-latest 正在滚动迁移到 26.04（10-19 ~ 11-19），
+    # 签到任务不该被镜像大版本变化干扰。等 26.04 稳定后再主动验证切换。
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
       - name: Install
         run: npm ci || npm install
 
